@@ -32,6 +32,7 @@ class Battle < Sinatra::Base
   get '/battle/show_players' do
     @player1 = session['player1']
     @player2 = session['player2']
+    @player2hp = "65"
     erb(:show_names)
   end
 end
