@@ -22,6 +22,6 @@ end
       fill_in "player1", :with => "Noora"
       fill_in "player2", :with => "Alex"
       click_button "Submit"
-      expect(page).to have_content 'Alex: 100HP'
+      expect(page).to have_css("progress[value='65']")
     end
 end
