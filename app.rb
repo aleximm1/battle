@@ -22,7 +22,7 @@ class Battle < Sinatra::Base
   end
 
   post '/battle/attack' do
-    $game.attack($game.p2)
+    $game.attack($game.player_queue.last)
     # session['player1_attack'] = params[:player1_attack]
     redirect '/battle/play?attacked=p1attack'
   end

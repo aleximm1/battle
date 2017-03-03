@@ -24,4 +24,14 @@ describe Player do
       expect(player.receive_damage).to eq 90
     end
   end
+
+  describe '#dead?' do
+    it "tells us if a player is alive" do
+      expect(player.dead?).to be false
+    end
+    it "tells us if a player is dead" do
+      10.times { player.receive_damage }
+      expect(player.dead?).to be true
+    end
+  end
 end

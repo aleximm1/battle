@@ -25,4 +25,29 @@ describe Game do
       expect(game.p2).to be_an_instance_of Player
     end
   end
+
+  describe '#player_queue' do
+    it "gives us the player whose turn it is" do
+      expect(game.player_queue.first.name).to eq "Narayan"
+    end
+  end
+
+  describe '#switch_player' do
+    it "puts the previous player at the back of the queue" do
+      expect{ game.switch_player }.to change{ game.player_queue.first }
+      expect(game.player_queue.last.name).to eq "Narayan"
+    end
+  end
+
+  describe '#loser' do
+    it "returns nil if no one has lost" do
+      expect(game.loser).to be nil
+    end
+    it "returns the loser's name when they've no hp" do
+      10.times { game.attack(game.p2)}
+      game.switch_player
+      expect(game.loser).to eql "Alex"
+    end
+  end
+
 end

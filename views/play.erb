@@ -1,16 +1,31 @@
 <h1>Player 1: <%=@game.p1.name%>, Player 2: <%=@game.p2.name%></h1>
-<h3>
-<%=@game.p2.name%>: <%=@game.p2.hp%>HP
-</h3>
-<div>
-  <label for="hp_current"><%=@game.p2.hp%></label>
-  <progress value=<%=@game.p2.hp%> max="100"></progress>
-  <label for="hp_max">100</label>
-</div>
+
+<%if @attack == "p1attack"%>
+<!-- this is wrong -->  <h2><%=@game.player_queue.last.name%> attacked <%=@game.active_player%> </h2>
+<%end%>
+
+<%if @game.loser %>
+  <p><%=@game.player_queue.last.name%> won, <%=@game.loser%> lost.</p>
+<%end%>
+
+<p><%=@game.active_player%>'<%unless @game.active_player.end_with? "s"%>s<%end%> turn</p>
+
 <form action="attack" method="post">
   <input type="submit" value="Attack" name='player1_attack'>
 </form>
 
-<%if @attack == "p1attack"%>
-  <h2><%=@game.p1.name%> attacked <%=@game.p2.name%> </h2>
-<%end%>
+<h3><%=@game.p2.name%>: <%=@game.p2.hp%>HP</h3>
+
+<div>
+  <label for="hp_current"><%=@game.p2.hp%></label>
+  <progress value=<%=@game.p2.hp%> name="<%=@game.p2.name%>_hp_bar" max="100"></progress>
+  <label for="hp_max">100</label>
+</div>
+
+<h3><%=@game.p1.name%>: <%=@game.p1.hp%>HP</h3>
+
+<div>
+  <label for="hp_current"><%=@game.p1.hp%></label>
+  <progress value=<%=@game.p1.hp%> name="<%=@game.p1.name%>_hp_bar" max="100"></progress>
+  <label for="hp_max">100</label>
+</div>
