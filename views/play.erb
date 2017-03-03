@@ -1,0 +1,16 @@
+<h1>Player 1: <%=$player1.name%>, Player 2: <%=$player2.name%></h1>
+<h3>
+<%=$player2.name%>: <%=$player2.hp%>HP
+</h3>
+<div>
+  <label for="hp_current"><%=$player2.hp%></label>
+  <progress value=<%=$player2.hp%> max="100"></progress>
+  <label for="hp_max">100</label>
+</div>
+<form action="attack" method="post">
+  <input type="submit" value="Attack" name='player1_attack'>
+</form>
+
+<%if @attack == "p1attack"%>
+  <h2><%=$player1.name%> attacked <%=$player2.name%> </h2>
+<%end%>

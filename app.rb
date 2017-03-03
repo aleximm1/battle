@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require_relative './lib/player'
 
 class Battle < Sinatra::Base
   get '/' do
@@ -15,33 +16,30 @@ class Battle < Sinatra::Base
   end
 
   post '/battle/set_players' do
-    p params
-    session['player1'] = params[:player1]
-    session['player2'] = params[:player2]
-    # session['player1_attack'] = params[:player1_attack]
-    redirect '/battle/show_players'
+    $player1 = Player.new(params[:player1])
+    $player2 = Player.new(params[:player2])
+    redirect '/battle/play'
   end
 
   post '/battle/attack' do
-    session['player1_attack'] = params[:player1_attack]
-    redirect '/battle/show_players'
+    $player2.recieve_damage
+    # session['player1_attack'] = params[:player1_attack]
+    redirect '/battle/play?attacked=p1attack'
   end
 
-  get '/battle/show_players' do
-    @player1 = session['player1']
-    @player2 = session['player2']
-    @player2hp = '65'
-    @player1_attack = session['player1_attack']
-    if @player1_attack == 'player1_attack'
-      calcualate_damage("p1attack")
-    end
-    erb(:show_names)
+  get '/battle/play' do
+    # @player1_attack = session['player1_attack']
+    # if @player1_attack == 'Attack'
+    #   calcualate_damage("p1attack")
+    # end
+    @attack = params[:attacked]
+    erb(:play)
   end
 
-  def calcualate_damage(attack_type)
-    case attack_type
-    when "p1attack"
-      @attack = "p1attack"
-    end
-  end
+  # def calcualate_damage(attack_type)
+  #   case attack_type
+  #   when "p1attack"
+  #     @attack = "p1attack"
+  #   end
+  # end
 end

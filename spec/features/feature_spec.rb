@@ -16,7 +16,7 @@ end
 RSpec.feature 'recording hit points' do
   scenario 'shows player 2\'s hit points' do
     sign_in_and_play
-    expect(page).to have_css("progress[value='65']")
+    expect(page).to have_css("progress[value='100']")
   end
 end
 # As Player 1,
@@ -25,7 +25,15 @@ end
 RSpec.feature 'attacking' do
   scenario 'player 1 attacks player 2 and gets confirmation' do
     sign_in_and_play
-    click_button 'player1_attack'
+    click_button 'Attack'
     expect(page).to have_content "Noora attacked Alex"
+  end
+
+  scenario 'player 2\'s hp is reduced by 10 when player 1 attacks' do
+    sign_in_and_play
+    click_button 'Attack'
+    expect(page).to have_css('progress[value="90"]')
+    expect(page).to have_content "Alex: 90HP"
+    expect(page).not_to have_content "Alex: 100HP"
   end
 end
