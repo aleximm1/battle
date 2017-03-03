@@ -1,6 +1,6 @@
 require 'sinatra/base'
 require_relative './lib/player'
-require_relative './lib/game' 
+require_relative './lib/game'
 
 class Battle < Sinatra::Base
   get '/' do
@@ -33,6 +33,7 @@ class Battle < Sinatra::Base
     #   calcualate_damage("p1attack")
     # end
     @attack = params[:attacked]
+    @game = $game
     erb(:play)
   end
 
