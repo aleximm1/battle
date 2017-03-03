@@ -9,7 +9,7 @@ class Player
     @hp = hp
   end
 
-  def recieve_damage
+  def receive_damage
     @hp -= 10
   end
 
